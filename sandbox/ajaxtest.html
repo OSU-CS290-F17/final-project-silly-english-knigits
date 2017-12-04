@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<script type="text/javascript">
+			function changediv(){
+				alert("Hello");
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200){
+						console.log(this.responseText);
+						document.getElementById('mydiv').innerHTML = this.responseText;
+					}
+				}
+				xhttp.open("GET", "newtext.txt", true);
+				xhttp.send();
+			}
+
+		</script>
+
+	</head>
+
+	<body>
+		
+		<button onclick="changediv()" >ChangeMe</button>
+		<div id="mydiv">
+			Hello, world!
+		</div>
+
+	</body>
+</html>
