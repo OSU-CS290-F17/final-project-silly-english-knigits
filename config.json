@@ -1,0 +1,10 @@
+{
+  "CompanyName": "MyCompany",
+  "SiteTitle": "My Employee Tracking",
+  "DBHost": "localhost",
+  "DBUser": "DBUserName",
+  "DBPass": "DBPassword",
+  "DBName": "MyDatabase",
+  "DefaultUser": "root",
+  "DefaultPass": "Roger"
+}
