@@ -18,7 +18,7 @@
                 					<span> Position: <span> {{phone}} </span></span>										
                 					<span> Salry: <span> {{salry}} </span></span>
                 					<span> Department: <span> {{dept}} </span></span>
-										<span> pervious: <span> {{pervious}} </span></span>
+										<div> pervious: <span> {{pervious}} </span></div>
                 				<div>
                             
                         </div>
