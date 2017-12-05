@@ -3,9 +3,28 @@
 //
 var express = require('express');
 var exphbs = require('express-handlebars');
+var fs = require('fs');
+var mysql = require('mysql');
+
+if(!fs.existsSync("config.json")){
+	console.log("Error! Config file does not exist! Has the system been inited?!");
+	process.exit(1);
+}
+
+var configraw = fs.readFileSync("config.json");
+var config = JSON.parse(configraw);
+
+var conn = mysql.createConnection({
+	host: config.DBHost,
+	user: config.DBUser,
+	password: config.DBPass,
+	database: config.DBName
+});
+
 var app = express();
 
 var port = 3030;
+var maxLevel = 2;
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -22,7 +41,7 @@ app.get('/', function(req, res){
 app.get('/:level', function(req, res){
 	var userLevel = req.params.level;
 
-	if(userLevl > 2){
+	if(userLevel > maxLevel){
 		console.log("!!!!! User Level Not Found!");
 		res.status(404);
 		res.render('404');
@@ -32,6 +51,22 @@ app.get('/:level', function(req, res){
 		res.status(200);
 		res.write("Viewing users as level " + userLevel);
 		res.end();	
+	}
+});
+
+//Route to get a person from the DB
+app.get('/:level/:person', function(req, res){
+	var userLevel = req.params.level;
+	var pid = req.params.person;
+
+	if(userLevel > maxLevel){
+		console.log("!!!!! User Level Not Found!");
+		res.status(404);
+		res.render('404');
+	}
+	else {
+		console.log("--- Fetching User: " + pid);
+
 	}
 });
 
