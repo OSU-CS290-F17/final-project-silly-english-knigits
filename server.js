@@ -31,6 +31,47 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
 
+function getPerson(personID){
+	var thePerson = null;
+	//conn.connect(function(err) {
+	//	if(err) {
+	//		console.log("!!!!! Error getting person by id " + personID + ": " + err);
+	//	}
+	//	else {
+			var query = "SELECT * FROM People WHERE ID = " + personID;
+			console.log("***** Query: " + query);
+			conn.query(query, function(err, result, fields){
+				if(err){
+					console.log("!!!!! Error getting person by id " + personID + ": " + err);
+				}
+				else{
+					thePerson = result;
+					console.log("-- Person data: " + JSON.stringify(result));
+				}
+				//return;
+			});
+	//	}
+	//	return;
+	//});	
+	//return thePerson;
+}
+
+
+app.get('/test/:id', function(req, res){
+	var pid = req.params.id;
+	var myPerson = getPerson(pid);
+	if(myPerson == null){
+		res.status(404);
+		res.write("Could not find such a person");
+		res.end();
+	}
+	else{
+		res.status(200);
+		res.write(myPerson);
+		res.end();
+	}
+});
+
 //Default view as level 0 - viewing only
 app.get('/', function(req, res){
 	
@@ -55,6 +96,7 @@ app.get('/:level', function(req, res){
 });
 
 //Route to get a person from the DB
+//Return a JSON Blob for AJAX
 app.get('/:level/:person', function(req, res){
 	var userLevel = req.params.level;
 	var pid = req.params.person;
@@ -82,8 +124,12 @@ app.post('*', function(req, res){
 	res.render('404');
 });
 
-app.listen(port, function() {
-	console.log("$$$$$ Server listening on port" + port + " $$$$$");
+conn.connect(function(err){
+
+	app.listen(port, function() {
+		console.log("$$$$$ Server listening on port" + port + " $$$$$");
+	});
+
 });
 
 
