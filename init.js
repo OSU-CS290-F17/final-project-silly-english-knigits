@@ -15,6 +15,8 @@ var config = new Object();
 	config.DBName="MyDatabase";
 	config.DefaultUser="root";
 	config.DefaultPass="Roger";
+	config.DefaultEmail="admin@mysite.com";
+	config.DefaultPicture="http://placekitten.com/320/320/";
 
 var configfiletext = JSON.stringify(config, null, 2);
 
