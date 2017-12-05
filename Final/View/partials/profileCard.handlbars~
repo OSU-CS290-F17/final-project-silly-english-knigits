@@ -1,4 +1,4 @@
-<div class="employe" data-toggle="modal" data-target="#myModal" employe_name="{{name}}" position="{{position}}">
+div class="employe" data-toggle="modal" data-target="#myModal" employe_name="{{name}}" position="{{position}}">
                 <div class="img_container">
                      <img src="{{photoURL}}" alt="{{description}}">
                 </div>
