@@ -1,9 +1,9 @@
 {
   "CompanyName": "MyCompany",
   "SiteTitle": "My Employee Tracking",
-  "DBHost": "oniddb.cws.oregonstate.edu",
-  "DBUser": "thompzac-db",
-  "DBPass": "xEXG4uXIYgpuFZre",
+  "DBHost": "localhost",
+  "DBUser": "DBUserName",
+  "DBPass": "DBPassword",
   "DBName": "MyDatabase",
   "DefaultUser": "root",
   "DefaultPass": "Roger"
