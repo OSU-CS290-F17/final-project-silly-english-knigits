@@ -31,6 +31,8 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
 
+
+/* ABANDON SHIP!!!!
 function getPerson(personID){
 	var thePerson = null;
 	//conn.connect(function(err) {
@@ -54,22 +56,27 @@ function getPerson(personID){
 	//	return;
 	//});	
 	//return thePerson;
-}
+}*/
 
 
 app.get('/test/:id', function(req, res){
 	var pid = req.params.id;
-	var myPerson = getPerson(pid);
-	if(myPerson == null){
-		res.status(404);
-		res.write("Could not find such a person");
-		res.end();
-	}
-	else{
-		res.status(200);
-		res.write(myPerson);
-		res.end();
-	}
+	var query = "SELECT * FROM People WHERE ID = " + pid;
+	
+	conn.query(query, function(err, result, fields){
+		if(err) {
+			res.status(500);
+			res.write("Something went wrong");
+			res.end();
+		}
+		else {
+			res.status(200);
+			res.write(JSON.stringify(result));
+			res.end();
+		}	
+
+
+	});
 });
 
 //Default view as level 0 - viewing only
