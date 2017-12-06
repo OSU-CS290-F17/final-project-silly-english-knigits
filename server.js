@@ -5,6 +5,8 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var fs = require('fs');
 var mysql = require('mysql');
+var bodyParser = require('body-parser');
+
 
 if(!fs.existsSync("config.json")){
 	console.log("Error! Config file does not exist! Has the system been inited?!");
@@ -23,40 +25,26 @@ var conn = mysql.createConnection({
 
 var app = express();
 
-var port = 3030;
+var port = process.env.PORT || 3030;
 var maxLevel = 2;
+
+
+//This object will be passed to the rendering function to determine
+//how the page should render
+var renderInfo = new Object();
+	renderInfo.title = config.SiteTitle;
+	renderInfo.userLevel = 0;//Default to user level 0
+	renderInfo.is404 = false;
+	renderInfo.payload = new Object();//Payload data for specific section to render in JSON.
+	renderInfo.singleUser = true;
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-
-/* ABANDON SHIP!!!!
-function getPerson(personID){
-	var thePerson = null;
-	//conn.connect(function(err) {
-	//	if(err) {
-	//		console.log("!!!!! Error getting person by id " + personID + ": " + err);
-	//	}
-	//	else {
-			var query = "SELECT * FROM People WHERE ID = " + personID;
-			console.log("***** Query: " + query);
-			conn.query(query, function(err, result, fields){
-				if(err){
-					console.log("!!!!! Error getting person by id " + personID + ": " + err);
-				}
-				else{
-					thePerson = result;
-					console.log("-- Person data: " + JSON.stringify(result));
-				}
-				//return;
-			});
-	//	}
-	//	return;
-	//});	
-	//return thePerson;
-}*/
 
 
 app.get('/test/:id', function(req, res){
@@ -70,9 +58,22 @@ app.get('/test/:id', function(req, res){
 			res.end();
 		}
 		else {
-			res.status(200);
+			/*res.status(200);
 			res.write(JSON.stringify(result));
-			res.end();
+			res.end();*/
+			var payload = new Object();
+				payload.name = result[0].Name;
+				payload.email = result[0].Email;
+				payload.salary = result[0].Salary;
+			renderInfo.payload = payload;
+			var tempDat = JSON.stringify(renderInfo);
+			console.log(tempDat);
+			res.status(200);
+			res.render('test1', {
+				name: result[0].Name,
+				position: result[0].Position,
+				date: "12/6/2017"
+});
 		}	
 
 
@@ -115,14 +116,30 @@ app.get('/:level/:person', function(req, res){
 	}
 	else {
 		console.log("--- Fetching User: " + pid);
-
 	}
 });
+
+
 
 app.get('*', function(req, res){
 	console.log("----- Got Request");
 	res.status(404);
 	res.render('404');
+});
+
+app.post('/update', function(req, res){
+	res.status(501);
+	res.write("<h1>501</h1><p>Not Implemented</p>");
+	res.end();
+});
+
+app.post('/create', function(req, res){
+	var name = req.body.name;
+	var email = req.body.email;
+	var loc = req.body.location;
+	res.status(200);
+	res.write("Creating user " + name + " with email " + email + " in " + loc);
+	res.end();
 });
 
 app.post('*', function(req, res){
