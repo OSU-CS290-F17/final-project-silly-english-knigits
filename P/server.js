@@ -9,11 +9,11 @@ var app = express();
 var routes = require('./routes');
 var port = process.env.PORT ||3001;
 
-app.engine('hbs', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set('view engine', 'handlebars');
 
 
 app.use('/', routes);
