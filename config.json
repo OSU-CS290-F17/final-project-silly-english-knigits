@@ -1,6 +1,7 @@
 {
   "CompanyName": "MyCompany",
   "SiteTitle": "My Employee Tracking",
+  "logoUrl": "http://via.placeholder.com/140x100",
   "DBHost": "localhost",
   "DBUser": "DBUserName",
   "DBPass": "DBPassword",

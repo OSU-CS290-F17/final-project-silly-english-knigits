@@ -28,7 +28,7 @@ var app = express();
 var port = process.env.PORT || 3030;
 var maxLevel = 2;
 
-
+var pageNotFound= "the page you requested does not exist";
 //This object will be passed to the rendering function to determine
 //how the page should render
 //This only acts as a template. All routes should make a copy of this object before editing.
@@ -42,8 +42,11 @@ var maxLevel = 2;
 class renderInfo {
 	constructor(){
 		this.title = config.SiteTitle;
+		this.logo = config.logoUrl;
 		this.userLevel = -1;
 		this.error = false;
+		this.errorMassage = "";
+		this.errorCode= "";
 		this.payload = new Object();
 		this.showSearch = false;
 		this.showFilter = false;
@@ -104,7 +107,7 @@ app.get('/', function(req, res){
 	ri.doLogin = true;
 
 	res.status(200);
-	res.render('Main', ri);
+	res.render('main', ri);
 
 });
 
@@ -118,7 +121,9 @@ app.get('/:level', function(req, res){
 		//console.log("!!!!! User Level Not Found!");
 		res.status(404);
 		ri.error = true;
-		res.render('Main', ri);
+		ri.errorMessage="User Level Not Found!";
+		ri.errorCode= 400;
+		res.render('main', ri);
 	}
 	else {
 		console.log("--- Main view request for user level " + userLevel);
@@ -126,14 +131,17 @@ app.get('/:level', function(req, res){
 		query = "SELECT * FROM People";
 		conn.query(query, function(err, result, fields){
 			if(err){
-				ri.error = true;
-				res.render('Main', ri);	
+				ri.showSearch = true;
+				ri.error = false;
+				ri.errorMessage = err;
+				res.render('main', ri);	
 			}
 			else {
 				
 				if(result == undefined){
 					res.status(404);
 					ri.error = true;
+					ri.errorMessage= "Page Not Found";
 					res.render('Main', ri);
 				}
 				else{
@@ -162,12 +170,12 @@ app.get('/:level', function(req, res){
 							ri.payload.People[i].payload.canEdit = true;
 						}
 					}
-					res.render('Main', ri);
+					res.render('main',ir);
 				}
 			}
 		});
 	}
-
+	
 });
 
 //Route to get a person from the DB
