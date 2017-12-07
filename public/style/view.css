@@ -121,7 +121,9 @@ body {
 .hidden{
     display: none;
 }
-
+.show{
+	display: block;
+}
 .spacing{
     margin: 5px;
 }
