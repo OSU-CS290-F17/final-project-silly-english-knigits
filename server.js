@@ -209,9 +209,30 @@ app.get('*', function(req, res){
 });
 
 app.post('/update', function(req, res){
-	res.status(501);
-	res.write("<h1>501</h1><p>Not Implemented</p>");
-	res.end();
+	var name = req.body.name;
+	var email = req.body.email;
+	var loc = req.body.location;
+	var sal = req.body.salary;
+	var pos = req.body.position;
+	var dep = req.body.department;
+	var pic = req.body.photourl;
+	var query = "UPDATE People(Name, Email, Location, Salary, Position, Department, PhotoURL) VALUES('"+name+"','"+email+"','"+loc+"','"+sal+"','"+pos+"','"+dep+"','"+pic+"')";
+	
+	/*
+	conn.query(query, function(err, result, fields){
+		if(err){
+			console.log(err);
+			res.status(500);
+			res.write("error");
+			res.end();
+		}
+		else{
+			
+
+		}
+
+	});
+	*/
 });
 
 app.post('/create', function(req, res){
