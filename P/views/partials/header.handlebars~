@@ -1,9 +1,0 @@
-<header>
-
-  <div class="header-image-container">
-    <img src="{{logo_url}}">
-  </div>
-
-  <h1 class="site-title"><a href="/">{{title}}</a></h1>
-
-</header>
