@@ -5,7 +5,7 @@
      <div class="info">
      <span class="name">"{{payload.name}}"</span>
      <div class="history">
-     <ul><li>{{payload.position}} {{payload.location}} {{payload.date}} </li></ul>
+     <ul><li>{{payload.position}} | {{payload.location}} {{payload.date}} </li></ul>
      </div>
 		{{#if payload.canEdit}}
 			<div><a href="" onclick="showedit({{payload.id}})">Edit User</a> | <a href="" onclick="deleteUser({{payload.id}})">Delete</a></div>
