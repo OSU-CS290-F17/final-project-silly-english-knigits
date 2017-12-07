@@ -1,0 +1,42 @@
+
+<script type="text/javascript">	
+	function update(){
+		var name = document.getElementById("name").value;
+		var email = document.getElementById("email").value;
+		var loc = document.getElementById("location").value;
+		var sal = document.getElementById("sal").value;
+		var pos = document.getElementById("pos").value;
+		var dep = document.getElementById("dep").value;
+		var pic = document.getElementById("pic").value;
+
+
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200){
+				document.getElementById("updateme").innerHTML = this.responseText;
+			}
+			else {
+				document.getElementById("updateme").innerHTML = this.responseText;
+			}
+		};
+		
+		xhttp.open("POST", "http://localhost:3030/create", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send("name="+name+"&email="+email+"&location="+loc+"&salary="+sal+"&position="+pos+"&department="+dep+"&photourl="+pic);
+
+	}
+
+</script>
+
+
+	<input id="name" type="text" name="name"><br>
+	<input id="email" type="text" name="email"><br>
+	<input id="location" type="text" name="location"><br>
+	<input id="sal" type="text" name="salary"><br>
+	<input id="pos" type="text" name="position"><br>
+	<input id="dep" type="text" name="department"><br>
+	<input id="pic" type="text" name="photourl"><br>
+	<input type="submit" onclick="update()">
+<div id="updateme">
+
+</div>
