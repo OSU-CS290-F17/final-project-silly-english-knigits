@@ -183,7 +183,7 @@ app.get('/:level', function(req, res){
 app.get('/person/:person', function(req, res){
 	//var userLevel = req.params.level;
 	var pid = req.params.person;
-
+	console.log("person request for user " + pid);
 	/*if(userLevel > maxLevel){
 		console.log("!!!!! User Level Not Found!");
 		res.status(404);
@@ -194,14 +194,15 @@ app.get('/person/:person', function(req, res){
 	}*/
 	var query = "SELECT * FROM People WHERE ID = " + pid;
 	conn.query(query, function(err, result, fields){
-		if(result == undefined){
+		if(result == undefined || result.length == 0){
 			res.status(404);
 			res.write("error");
 			res.end();
 		}
 		else {
-			res.status(200);
+			res.writeHead(200, {"Content-type": "text/html"});
 			res.write(JSON.stringify(result[0]));
+
 			res.end();
 		}
 
