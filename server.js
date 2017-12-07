@@ -61,7 +61,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-
+/*
 app.get('/test/:id', function(req, res){
 	var pid = req.params.id;
 	var query = "SELECT * FROM People WHERE ID = " + pid;
@@ -74,9 +74,6 @@ app.get('/test/:id', function(req, res){
 			res.end();
 		}
 		else {
-			/*res.status(200);
-			res.write(JSON.stringify(result));
-			res.end();*/
 			//var payload = new Object();
 				ri.payload.name = result[0].Name;
 				ri.payload.email = result[0].Email;
@@ -95,6 +92,11 @@ app.get('/test/:id', function(req, res){
 
 	});
 });
+*/
+
+
+
+
 
 //Default view as level 0 - viewing only
 app.get('/', function(req, res){
@@ -159,10 +161,6 @@ app.get('/:level', function(req, res){
 							console.log("User can edit these people");
 							ri.payload.People[i].payload.canEdit = true;
 						}
-						/*console.log("Payload JSON: ");
-						console.log(JSON.stringify(ri.payload.People[i]));
-						console.log();
-						console.log();*/
 					}
 					res.render('Main', ri);
 				}
@@ -220,9 +218,24 @@ app.post('/create', function(req, res){
 	var name = req.body.name;
 	var email = req.body.email;
 	var loc = req.body.location;
-	res.status(200);
-	res.write("Creating user " + name + " with email " + email + " in " + loc);
-	res.end();
+	var sal = req.body.salary;
+	var pos = req.body.position;
+	var dep = req.body.department;
+	var pic = req.body.photourl;
+	var query = "INSERT INTO People(Name, Email, Location, Salary, Position, Department, PhotoURL) VALUES('"+name+"','"+email+"','"+loc+"','"+sal+"','"+pos+"','"+dep+"','"+pic+"')";
+	conn.query(query, function(err, result, fields){
+		if(err){
+			console.log(err);
+			res.status(500);
+			res.write("error");
+			res.end();
+		}
+		else {
+			res.status(200);
+			res.write("ok");
+			res.end();
+		}
+	});
 });
 
 app.post('*', function(req, res){
