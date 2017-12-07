@@ -1,7 +1,3 @@
-/* 
-    Created on : Oct 30, 2017, 12:57:26 AM
-    Author     : Multezem Kedir
-*/
 
 
 header, footer {
@@ -19,7 +15,6 @@ body{
 
 header{
     position: relative;
-    font-size: 60px;
     font-style: italic;
 }
 
