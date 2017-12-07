@@ -31,12 +31,27 @@ var maxLevel = 2;
 
 //This object will be passed to the rendering function to determine
 //how the page should render
-var renderInfo = new Object();
+//This only acts as a template. All routes should make a copy of this object before editing.
+/*var renderInfo = new Object();
 	renderInfo.title = config.SiteTitle;
 	renderInfo.userLevel = 0;//Default to user level 0
 	renderInfo.is404 = false;
-	renderInfo.payload = new Object();//Payload data for specific section to render in JSON.
-	renderInfo.singleUser = true;
+	renderInfo.payload;// = new Object();//Payload data for specific section to render in JSON.
+*/
+
+class renderInfo {
+	constructor(){
+		this.title = config.SiteTitle;
+		this.userLevel = -1;
+		this.error = false;
+		this.payload = new Object();
+		this.showSearch = false;
+		this.showFilter = false;
+		this.showPeople = false;
+		this.showLogin = false;
+		this.canEdit = false;
+	}
+}
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -50,7 +65,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/test/:id', function(req, res){
 	var pid = req.params.id;
 	var query = "SELECT * FROM People WHERE ID = " + pid;
-	
+	var ri = new requestInfo();
+		
 	conn.query(query, function(err, result, fields){
 		if(err) {
 			res.status(500);
@@ -61,11 +77,11 @@ app.get('/test/:id', function(req, res){
 			/*res.status(200);
 			res.write(JSON.stringify(result));
 			res.end();*/
-			var payload = new Object();
-				payload.name = result[0].Name;
-				payload.email = result[0].Email;
-				payload.salary = result[0].Salary;
-			renderInfo.payload = payload;
+			//var payload = new Object();
+				ri.payload.name = result[0].Name;
+				ri.payload.email = result[0].Email;
+				ri.payload.salary = result[0].Salary;
+			//renderInfo.payload = payload;
 			var tempDat = JSON.stringify(renderInfo);
 			console.log(tempDat);
 			res.status(200);
@@ -73,7 +89,7 @@ app.get('/test/:id', function(req, res){
 				name: result[0].Name,
 				position: result[0].Position,
 				date: "12/6/2017"
-});
+			});
 		}	
 
 
@@ -82,7 +98,11 @@ app.get('/test/:id', function(req, res){
 
 //Default view as level 0 - viewing only
 app.get('/', function(req, res){
-	
+	var ri = new renderInfo();
+	ri.doLogin = true;
+
+	res.status(200);
+	res.render('Main', ri);
 
 });
 
@@ -90,36 +110,99 @@ app.get('/', function(req, res){
 app.get('/:level', function(req, res){
 	var userLevel = req.params.level;
 
-	if(userLevel > maxLevel){
-		console.log("!!!!! User Level Not Found!");
+	var ri = new renderInfo();
+	ri.userLevel = userLevel;
+	if(userLevel > maxLevel || isNaN(userLevel)){
+		//console.log("!!!!! User Level Not Found!");
 		res.status(404);
-		res.render('404');
+		ri.error = true;
+		res.render('Main', ri);
 	}
 	else {
 		console.log("--- Main view request for user level " + userLevel);
-		res.status(200);
-		res.write("Viewing users as level " + userLevel);
-		res.end();	
+
+		query = "SELECT * FROM People";
+		conn.query(query, function(err, result, fields){
+			if(err){
+				ri.error = true;
+				res.render('Main', ri);	
+			}
+			else {
+				
+				if(result == undefined){
+					res.status(404);
+					ri.error = true;
+					res.render('Main', ri);
+				}
+				else{
+
+					//if(userLevel >= 1) ri.canEdit = true;	
+					res.status(200);
+					ri.showSearch = true;
+					ri.showFilter = true;
+					ri.showPeople = true;
+					console.log("Got some results here");
+					ri.payload.People = [];
+					for(var i = 0; i < result.length; ++i){
+						
+						ri.payload.People[i] = new Object();
+						ri.payload.People[i].payload = new Object();
+						//ri.payload.People[i].payload.Test = "THIS IS A TEST!";
+						ri.payload.People[i].payload.id = result[i].ID;
+						ri.payload.People[i].payload.name = result[i].Name;
+						ri.payload.People[i].payload.email = result[i].Email;
+						ri.payload.People[i].payload.salary = result[i].Salary;
+						ri.payload.People[i].payload.position = result[i].Position;
+						ri.payload.People[i].payload.location = result[i].Location;	
+						ri.payload.People[i].payload.photoURL = result[i].PhotoURL;
+						if(userLevel >= 1){
+							console.log("User can edit these people");
+							ri.payload.People[i].payload.canEdit = true;
+						}
+						/*console.log("Payload JSON: ");
+						console.log(JSON.stringify(ri.payload.People[i]));
+						console.log();
+						console.log();*/
+					}
+					res.render('Main', ri);
+				}
+			}
+		});
 	}
+
 });
 
 //Route to get a person from the DB
 //Return a JSON Blob for AJAX
-app.get('/:level/:person', function(req, res){
-	var userLevel = req.params.level;
+app.get('/person/:person', function(req, res){
+	//var userLevel = req.params.level;
 	var pid = req.params.person;
 
-	if(userLevel > maxLevel){
+	/*if(userLevel > maxLevel){
 		console.log("!!!!! User Level Not Found!");
 		res.status(404);
 		res.render('404');
 	}
 	else {
 		console.log("--- Fetching User: " + pid);
-	}
+	}*/
+	var query = "SELECT * FROM People WHERE ID = " + pid;
+	conn.query(query, function(err, result, fields){
+		if(result == undefined){
+			res.status(404);
+			res.write("error");
+			res.end();
+		}
+		else {
+			res.status(200);
+			res.write(JSON.stringify(result[0]));
+			res.end();
+		}
+
+
+	});
+	 
 });
-
-
 
 app.get('*', function(req, res){
 	console.log("----- Got Request");
@@ -143,7 +226,6 @@ app.post('/create', function(req, res){
 });
 
 app.post('*', function(req, res){
-	console.log("!!!!! Post Requests Not Allowed");
 	res.status(404);
 	res.render('404');
 });
