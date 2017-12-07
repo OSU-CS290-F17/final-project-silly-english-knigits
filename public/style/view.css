@@ -5,7 +5,11 @@ main{
     flex-wrap: wrap;
 }
 
-
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
 .search {
   width: 100%;
@@ -39,13 +43,19 @@ main{
   height: 52px;
 }
 
+.SearchContainer {
+	width: 100%;
+}
 
 .searchWrap{
-  width: 30%;
-  position: absolute;
+  margin: auto;
+  min-width: 30%;
+  max-width: 60%;
+  padding: 10px;
+  /*position: absolute;
   top: 30%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);*/
 }
 
 .filter-container {
@@ -67,6 +77,7 @@ main{
 }
 
 .employee {
+	min-width: 250px;
     max-width: 250px;
     padding: 10px;
     margin: 15px;

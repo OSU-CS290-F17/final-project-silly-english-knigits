@@ -29,15 +29,14 @@
 		{{> error}}
 	{{/if}}
 
+
 	{{#if showSearch}}
+		<div class="SearchContainer">
 		{{> search}}
-		{{> filter}}
+		</div>
 	{{/if}}
 
 	<div class="MainContainer">
-		{{#if payload.showFilter}}
-			{{> filter}}
-		{{/if}}
 		
 		{{#if showPeople}}
 			<section id="employes">
