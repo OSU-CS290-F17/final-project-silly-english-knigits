@@ -43,12 +43,12 @@ function breakUser(userObj){
 }
 
 function showModal(){
-
+	var modal = document.getElementById("myModal").classList.remove("hidden");	
 
 }
 
-function hideModeal(){
-
+function hideModal(){
+	var modal = document.getElementById("myModal").classList.add("hidden");
 }
 
 function forceReload(){

@@ -146,7 +146,7 @@ app.get('/:level', function(req, res){
 				}
 				else{
 
-					//if(userLevel >= 1) ri.canEdit = true;	
+					if(userLevel >= 1) ri.canEdit = true;	
 					res.status(200);
 					ri.showSearch = true;
 					ri.showFilter = true;
