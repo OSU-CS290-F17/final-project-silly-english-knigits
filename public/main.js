@@ -43,8 +43,8 @@ function breakUser(userObj){
 }
 
 function showModal(){
+	console.log("Showing modal");
 	var modal = document.getElementById("myModal").classList.remove("hidden");	
-
 }
 
 function hideModal(){
