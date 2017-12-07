@@ -127,6 +127,8 @@ function serch(input, arr){
 				}
 			}
 		}
+}
+}
 function clearForm(){
 	document.getElementById("fname").value = "";
 	document.getElementById("fpic").value = "";
