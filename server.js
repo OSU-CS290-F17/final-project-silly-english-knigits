@@ -118,7 +118,7 @@ app.get('/:level', function(req, res){
 	var ri = new renderInfo();
 	ri.userLevel = userLevel;
 	if(userLevel > maxLevel || isNaN(userLevel)){
-		//console.log("!!!!! User Level Not Found!");
+		console.log("!!!!! User Level Not Found!");
 		res.status(404);
 		ri.error = true;
 		ri.errorMessage="User Level Not Found!";
@@ -131,8 +131,9 @@ app.get('/:level', function(req, res){
 		query = "SELECT * FROM People";
 		conn.query(query, function(err, result, fields){
 			if(err){
-				ri.showSearch = true;
-				ri.error = false;
+				console.log(err);
+				ri.showSearch = false;
+				ri.error = true;
 				ri.errorMessage = err;
 				res.render('main', ri);	
 			}
@@ -170,7 +171,7 @@ app.get('/:level', function(req, res){
 							ri.payload.People[i].payload.canEdit = true;
 						}
 					}
-					res.render('main',ir);
+					res.render('main',ri);
 				}
 			}
 		});
@@ -273,7 +274,11 @@ app.post('*', function(req, res){
 });
 
 conn.connect(function(err){
+	if(err){
 
+		console.log("Server error: " + err);
+		process.exit(1);
+	}
 	app.listen(port, function() {
 		console.log("$$$$$ Server listening on port" + port + " $$$$$");
 	});
