@@ -23,7 +23,7 @@ var departmentTable = "CREATE TABLE Departments (ID int(255) NOT NULL PRIMARY KE
 
 var positionTable = "CREATE TABLE Positions (ID int(255) NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(255) NOT NULL, DefaultSalary int(255) NOT NULL)";
 
-var peopleTable = "CREATE TABLE People (ID int(255) NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(255) NOT NULL, Department int(255) NOT NULL, Salary int(255) NOT NULL, Email varchar(255) NOT NULL, Position int(255) NOT NULL, LocationOverride varchar(255) NOT NULL)";
+var peopleTable = "CREATE TABLE People (ID int(255) NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(255) NOT NULL, Department int(255) NOT NULL, Salary int(255) NOT NULL, Email varchar(255) NOT NULL, Position int(255) NOT NULL, LocationOverride varchar(255) NOT NULL, PhotoURL varchar(255))";
 
 var userTable = "CREATE TABLE Users (ID int(255) NOT NULL PRIMARY KEY AUTO_INCREMENT, Username varchar(255) NOT NULL UNIQUE, Password varchar(255) NOT NULL, Email varchar(255) NOT NULL, Picture varchar(255) NOT NULL)";
 
