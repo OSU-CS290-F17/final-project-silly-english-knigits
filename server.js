@@ -267,6 +267,23 @@ app.post('/create', function(req, res){
 	});
 });
 
+app.post('/delete', function(req, res){
+	var did = req.body.did;
+	console.log("Deleting " + did);
+	var query = "DELETE FROM People WHERE ID = " + did;
+	conn.query(query, function(err, result, fields){
+		if(err){
+			console.log(err);
+			res.status(500);
+			res.end();
+		}
+		else {
+			res.status(200);
+			res.end();
+		}
+	});
+});
+
 app.post('*', function(req, res){
 	res.status(404);
 	res.render('404');

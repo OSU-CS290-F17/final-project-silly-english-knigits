@@ -8,7 +8,7 @@
      <ul><li>{{payload.position}} {{payload.location}} {{payload.date}} </li></ul>
      </div>
 		{{#if payload.canEdit}}
-			<div><a href="#">Edit User {{payload.id}}</a> | <a href="#">Delete</a></div>
+			<div><a href="" onclick="showedit({{payload.id}})">Edit User {{payload.id}}</a> | <a href="" onclick="deleteUser({{payload.id}})">Delete</a></div>
 		{{/if}}
  </div>
  </div>
