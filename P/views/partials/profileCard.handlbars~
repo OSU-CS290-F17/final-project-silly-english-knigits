@@ -1,0 +1,12 @@
+div class="employe" data-toggle="modal" data-target="#myModal" employe_name="{{name}}" position="{{position}}">
+                <div class="img_container">
+                     <img src="{{photoURL}}" alt="{{description}}">
+                </div>
+                <div class="info">
+                    <span class="name">"{{name}}"</span>
+                    <div class="history">
+                        <ul><li>{{position}} {{date}} </li></ul>
+                    </div>
+                </div>
+
+            </div>

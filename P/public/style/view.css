@@ -1,0 +1,102 @@
+
+
+main{
+    display: flex;
+    flex-wrap: wrap;
+}
+#filter_bar {
+    display: none;
+    width: 100%;
+    background-color: orangered;
+    color: white;
+    text-align: right;
+    border: 1px solid red
+}
+#filter_bar h1 {
+    display:inline;
+    margin-right:35px;
+    font-size: 20px;
+}
+
+    #filter_bar h1:hover {
+        cursor: pointer;
+    }
+#filter_box {
+    width: 100%;
+    border: 1px solid #D8D8D8;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+#filter_container {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.description {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.employe {
+    max-width: 250px;
+    padding: 10px;
+    margin: 15px;
+    border: 3px solid #9e9e9e;
+    border-radius: 20px;
+    display: inline-block;
+}
+.employe:hover{
+    box-shadow: 5px 5px 5px #888888; 
+    cursor: pointer;
+}
+.img_container {
+    text-align: center;
+    margin: 10px 0 15px 0;
+}
+
+.avatar {
+    width: 40%;
+    border-radius: 50%;
+    border: 3px solid #f1f1f1;
+}
+.name{
+    font-weight: bold;
+    font-size: 20px;
+}
+.name::after{
+    content: ':';
+}
+.info {
+    border: 3px solid #D8D8D8;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.history {
+    font-size: 18px;
+}
+
+#sell-something-button {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  height: 60px;
+  width: 60px;
+  border: none;
+  border-radius: 30px;
+  font-size: 36px;
+  background-color: #f67811;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.hidden{
+    display: none;
+}
+
+.spacing{
+    margin: 5px;
+}
