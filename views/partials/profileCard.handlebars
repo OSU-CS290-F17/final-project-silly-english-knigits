@@ -1,16 +1,14 @@
 <div class="employee" data-toggle="modal" data-target="#myModal" employe_name="{{payload.name}}" position="{{payload.position}}">
-                <div class="img_container">
-                     <img src="{{payload.photoURL}}" alt="{{payload.name}}">
-                </div>
-                <div class="info">
-					<div>{{payload.Test}}</div>
-                    <span class="name">"{{payload.name}}"</span>
-                    <div class="history">
-                        <ul><li>{{payload.position}} {{payload.location}} {{payload.date}} </li></ul>
-                    </div>
-					{{#if payload.canEdit}}
-						<div><a href="#">Edit User {{payload.id}}</a> | <a href="#">Delete</a></div>
-					{{/if}}
-                </div>
-
-            </div>
+	 <div class="img_container">
+	  		<img  class="avatar" src="{{payload.photoURL}}" alt="{{payload.name}}">
+     </div>
+     <div class="info">
+     <span class="name">"{{payload.name}}"</span>
+     <div class="history">
+     <ul><li>{{payload.position}} {{payload.location}} {{payload.date}} </li></ul>
+     </div>
+		{{#if payload.canEdit}}
+			<div><a href="#">Edit User {{payload.id}}</a> | <a href="#">Delete</a></div>
+		{{/if}}
+ </div>
+ </div>

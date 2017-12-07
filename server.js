@@ -132,7 +132,6 @@ app.get('/:level', function(req, res){
 		conn.query(query, function(err, result, fields){
 			if(err){
 				console.log(err);
-				ri.showSearch = false;
 				ri.error = true;
 				ri.errorMessage = err;
 				res.render('main', ri);	
@@ -143,7 +142,7 @@ app.get('/:level', function(req, res){
 					res.status(404);
 					ri.error = true;
 					ri.errorMessage= "Page Not Found";
-					res.render('Main', ri);
+					res.render('main', ri);
 				}
 				else{
 

@@ -2,10 +2,10 @@
   "CompanyName": "MyCompany",
   "SiteTitle": "My Employee Tracking",
   "logoUrl": "http://via.placeholder.com/140x100",
-  "DBHost": "localhost",
-  "DBUser": "DBUserName",
-  "DBPass": "DBPassword",
-  "DBName": "MyDatabase",
+  "DBHost": "index-industries.com",
+  "DBUser": "kedirmu",
+  "DBPass": "mvcAETC4xnSDijFh",
+  "DBName": "CS290-Final-Thompzac",
   "DefaultUser": "root",
-  "DefaultPass": "Roger"
+  "DefaultPass": "mvcAETC4xnSDijFh"
 }

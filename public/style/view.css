@@ -43,37 +43,22 @@ main{
 .searchWrap{
   width: 30%;
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-#filter_bar {
-    display: none;
-    width: 100%;
-    background-color: orangered;
-    color: white;
-    text-align: right;
-    border: 1px solid red
-}
-#filter_bar h1 {
-    display:inline;
-    margin-right:35px;
-    font-size: 20px;
-}
 
-    #filter_bar h1:hover {
-        cursor: pointer;
-    }
-#filter_box {
-    width: 100%;
-    border: 1px solid #D8D8D8;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-#filter_container {
+.filter-container {
+    min-width: 225px;
+    max-width: 225px;
+    margin: 10px 10px auto 10px;
     padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
+    border-radius: 3px;
+    background-color: #efefef;
+}
+.filter-container h2{
+  text-align: center;
+  
 }
 
 .description {
